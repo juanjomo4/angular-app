@@ -20,17 +20,18 @@
 </ul> -->
 
 @if (enabled) {
-  <h2>{{ title }}</h2>
-  <ul>
-    @for (course of courses; track $index) {
-      <li>{{ course }}</li>
-    } 
-  </ul>
+<h2>{{ title }}</h2>
+<ul>
+  @for (course of courses; track $index) {
+  <li>{{ course }}</li>
+  }
+</ul>
+<app-product></app-product>
 } @else {
-  <div>
-    <h2>La funcionalidad no está habilitada</h2>
-    <p>Habilita la funcionalidad para ver el título.</p>
-  </div>
+<div>
+  <h2>La funcionalidad no está habilitada</h2>
+  <p>Habilita la funcionalidad para ver el título.</p>
+</div>
 }
 
 <router-outlet />
