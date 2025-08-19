@@ -1,4 +1,7 @@
-<product-app-form (newproductEvent)="addProduct($event)"></product-app-form>
+<product-app-form
+  (newproductEvent)="addProduct($event)"
+  [product]="productSelected"
+></product-app-form>
 
 @if (products.length>0) {
 <table>
@@ -8,6 +11,7 @@
       <th>Name</th>
       <th>Description</th>
       <th>Price</th>
+      <th>Update</th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +21,11 @@
       <td>{{ product.name }}</td>
       <td>{{ product.description }}</td>
       <td>{{ product.price }}</td>
+      <td>
+        <button (click)="onUpdateProduct(product)">Update</button>
+      </td>
     </tr>
+
     }
   </tbody>
 </table>

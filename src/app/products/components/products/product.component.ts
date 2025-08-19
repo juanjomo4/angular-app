@@ -12,6 +12,8 @@ import { FormComponent } from '../form/form.component';
 export class ProductComponent implements OnInit {
   products: Product[] = [];
 
+  productSelected: Product = new Product();
+  
   constructor(private service: ProductService) {}
 
   /*
@@ -30,5 +32,10 @@ export class ProductComponent implements OnInit {
     // Forma inmutable que se debe de usar en React,
     // se esparcen los elementos del arreglo y creamos un nuevo arreglo para agregar el nuevo elemento.
     // this.products = [...this.products, { ...product, id: new Date().getTime() }];
+  }
+
+  onUpdateProduct(product: Product) {
+    this.productSelected = product;
+    
   }
 }
