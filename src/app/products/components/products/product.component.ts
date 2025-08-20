@@ -50,9 +50,16 @@ export class ProductComponent implements OnInit {
         { ...product, id: new Date().getTime() },
       ];
     }
+    this.productSelected = new Product(); // Resetea el formulario para un nuevo producto
   }
 
   onUpdateProduct(product: Product) {
     this.productSelected = product;
+  }
+
+  onDeleteProduct(id: number) {
+    // Filtra los productos para eliminar el producto con el ID especificado
+    this.products = this.products.filter((product) => product.id !== id);
+    console.log(`Product with ID ${id} deleted.`);
   }
 }
