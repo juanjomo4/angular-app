@@ -54,7 +54,7 @@ export class ProductComponent implements OnInit {
   }
 
   onUpdateProduct(product: Product) {
-    this.productSelected = product;
+    this.productSelected = {...product};
   }
 
   onDeleteProduct(id: number) {

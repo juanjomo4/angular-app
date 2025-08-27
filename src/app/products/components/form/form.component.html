@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" #productForm="ngForm">
   <div>
     <label for="name">Name:</label>
     <input
@@ -7,8 +7,14 @@
       id="name"
       name="name"
       [(ngModel)]="product.name"
+      #name="ngModel"
       required
     />
+    <div *ngIf="name.invalid && (name.dirty || name.touched)">
+      <div>
+        <small class="text-danger">Name is required.</small>
+      </div>
+    </div>
   </div>
   <div>
     <label for="description">Description:</label>
@@ -18,7 +24,16 @@
       id="description"
       name="description"
       [(ngModel)]="product.description"
+      #description="ngModel"
+      required
     />
+    <div
+      *ngIf="description.invalid && (description.dirty || description.touched)"
+    >
+      <div>
+        <small class="text-danger">Description is required.</small>
+      </div>
+    </div>
   </div>
   <div>
     <label for="price">Price:</label>
@@ -28,11 +43,32 @@
       id="price"
       name="price"
       [(ngModel)]="product.price"
+      #price="ngModel"
       required
     />
+    <div *ngIf="price.invalid && (price.dirty || price.touched)">
+      <div>
+        <small class="text-danger">Price is required.</small>
+      </div>
+    </div>
   </div>
   <br />
-  <button class="btn btn-sm btn-primary" type="submit">
-    {{ product.id > 0 ? "Update" : "Create" }}
-  </button>
+  <div>
+    <button
+      class="btn btn-sm btn-primary m-1"
+      type="submit"
+      [disabled]="!productForm.form.valid"
+    >
+      <!-- [disabled]="!product.name || !product.description || !product.price" -->
+      {{ product.id > 0 ? "Update" : "Create" }}
+    </button>
+    <button
+      class="btn btn-sm btn-success m-1"
+      (click)="clean()"
+      type="button"
+      [disabled]="!product.name && !product.description && !product.price"
+    >
+      Clean
+    </button>
+  </div>
 </form>

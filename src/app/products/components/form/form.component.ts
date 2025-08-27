@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../../models/Product';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'product-app-form',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',
 })
@@ -19,5 +20,8 @@ export class FormComponent {
   onSubmit() {
     this.newproductEvent.emit(this.product);
     console.log('Form submitted:', this.product);
+  }
+  clean() {
+    this.product = new Product();
   }
 }
