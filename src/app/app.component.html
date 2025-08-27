@@ -1,9 +1,31 @@
-<button type="button" (click)="setEnabled()">
-  {{ enabled ? "Deshabilitar" : "Habilitar" }}
-</button>
+<div class="container m-2">
+  <button
+    class="btn btn-sm"
+    [ngClass]="enabled ? 'btn-danger' : 'btn-primary'"
+    type="button"
+    (click)="setEnabled()"
+  >
+    {{ enabled ? "Deshabilitar" : "Habilitar" }}
+  </button>
 
-<h1>Mi Aplicación Angular</h1>
-
+  <h1>Mi Aplicación Angular</h1>
+  <div>
+    @if (enabled) {
+    <h2>{{ title }}</h2>
+    <ul>
+      @for (course of courses; track $index) {
+      <li>{{ course }}</li>
+      }
+    </ul>
+    <app-product></app-product>
+    } @else {
+    <div class="alert alert-warning" role="alert">
+      <h2>La funcionalidad no está habilitada</h2>
+      <p>Habilita la funcionalidad para ver el título.</p>
+    </div>
+    }
+  </div>
+</div>
 <!-- <div *ngIf="enabled; else notEnabled">
   <h2>{{ title }}</h2>
 </div>
@@ -18,20 +40,5 @@
 <ul *ngIf="enabled">
   <li *ngFor="let course of courses">{{ course }}</li>
 </ul> -->
-
-@if (enabled) {
-<h2>{{ title }}</h2>
-<ul>
-  @for (course of courses; track $index) {
-  <li>{{ course }}</li>
-  }
-</ul>
-<app-product></app-product>
-} @else {
-<div>
-  <h2>La funcionalidad no está habilitada</h2>
-  <p>Habilita la funcionalidad para ver el título.</p>
-</div>
-}
 
 <router-outlet />

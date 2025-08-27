@@ -2,6 +2,7 @@
   <div>
     <label for="name">Name:</label>
     <input
+      class="form-control my-2"
       type="text"
       id="name"
       name="name"
@@ -11,16 +12,18 @@
   </div>
   <div>
     <label for="description">Description:</label>
-    <textarea
+    <input
+      class="form-control my-2"
       type="text"
       id="description"
       name="description"
       [(ngModel)]="product.description"
-    ></textarea>
+    />
   </div>
   <div>
     <label for="price">Price:</label>
     <input
+      class="form-control my-2"
       type="number"
       id="price"
       name="price"
@@ -28,5 +31,8 @@
       required
     />
   </div>
-  <button type="submit">{{ product.id > 0 ? "Update" : "Create" }}</button>
+  <br />
+  <button class="btn btn-sm btn-primary" type="submit">
+    {{ product.id > 0 ? "Update" : "Create" }}
+  </button>
 </form>
