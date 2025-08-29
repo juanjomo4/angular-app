@@ -40,6 +40,13 @@ export class ProductService {
       .pipe(map((response: any) => response._embedded.products as Product[]));
   }
 
+  /*
+   * Método para crear un nuevo producto.
+   */
+  create(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.url, product);
+  }
+
   // findById(id: number): Observable<Product | undefined> {
   //   return of(this.products.find((product) => product.id === id));
   // }
