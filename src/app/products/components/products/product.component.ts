@@ -28,38 +28,39 @@ export class ProductComponent implements OnInit {
 
   addProduct(product: Product) {
     // Verifica si el producto ya tiene un ID asignado
-    // Si el ID es mayor a 0, significa que es un producto existente y se actualiza.
-    // Si el ID es 0 o negativo, significa que es un nuevo producto y se asigna un nuevo ID.
-    // En este caso, se asigna un ID único basado en la fecha actual.
+    // Si el ID es mayor a 0, significa que es un producto existente y se actualiza
+    // Si el ID es 0 o negativo, significa que es un nuevo producto
     if (product.id > 0) {
-      this.products = this.products.map((prod) => {
-        if (prod.id == product.id) {
-          return { ...product }; // Actualiza el producto existente
-        }
-        return prod; // Retorna el producto sin cambios
+      this.service.update(product).subscribe((updatedProduct) => {
+        this.products = this.products.map((prod) => {
+          if (prod.id == product.id) {
+            return { ...updatedProduct }; // Actualiza el producto existente
+          }
+          return prod; // Retorna el producto sin cambios
+        });
       });
     } else {
       // Forma mutable
       //product.id = new Date().getTime();
       // this.products.push(product);
 
-      // Forma inmutable que se debe de usar en React,
-      // se esparcen los elementos del arreglo y creamos un nuevo arreglo para agregar el nuevo elemento.
-      this.products = [
-        ...this.products,
-        { ...product, id: new Date().getTime() },
-      ];
+      // Llamada al servicio para crear el producto en el backend
+      // se esparcen los elementos del arreglo y creamos un nuevo arreglo para agregar el nuevo elemento
+      this.service.create(product).subscribe((newProduct) => {
+        this.products = [...this.products, { ...newProduct }];
+      });
     }
     this.productSelected = new Product(); // Resetea el formulario para un nuevo producto
   }
 
   onUpdateProduct(product: Product) {
-    this.productSelected = {...product};
+    this.productSelected = { ...product };
   }
 
   onDeleteProduct(id: number) {
     // Filtra los productos para eliminar el producto con el ID especificado
-    this.products = this.products.filter((product) => product.id !== id);
-    console.log(`Product with ID ${id} deleted.`);
+    this.service.delete(id).subscribe(() => {
+      this.products = this.products.filter((product) => product.id !== id);
+    });
   }
 }

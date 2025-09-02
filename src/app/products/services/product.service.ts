@@ -7,21 +7,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ProductService {
-  // private products: Product[] = [
-  //   {
-  //     id: 1,
-  //     name: 'Sample Product',
-  //     description: 'This is a sample product description.',
-  //     price: 99.99,
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'Another Product',
-  //     description: 'This is another product description.',
-  //     price: 49.99,
-  //   },
-  // ];
-
   constructor(private http: HttpClient) {}
   private url = 'http://localhost:8080/products';
   /*
@@ -29,8 +14,6 @@ export class ProductService {
    * Se usa Observable para simular una llamada asíncrona.
    */
   findAll(): Observable<Product[]> {
-    // return of(this.products);
-
     /*
      * Llamada al backend
      * Se usa map para transformar la respuesta del backend y extraer la lista de productos
@@ -47,7 +30,17 @@ export class ProductService {
     return this.http.post<Product>(this.url, product);
   }
 
-  // findById(id: number): Observable<Product | undefined> {
-  //   return of(this.products.find((product) => product.id === id));
-  // }
+  /*
+   * Método para actualizar un producto existente.
+   */
+  update(product: Product): Observable<Product> {
+    return this.http.put<Product>(`${this.url}/${product.id}`, product);
+  }
+
+  /*
+   * Método para eliminar un producto existente.
+   */
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`);
+  }
 }
